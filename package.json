@@ -1,5 +1,5 @@
 {
-  "name": "express-api-crud",
+  "name": "ex-express-api-crud",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/manolioluigi/express-api-crud.git"
+    "url": "git+https://github.com/manolioluigi/ex-express-api-crud.git"
   },
   "author": "",
   "license": "ISC",
