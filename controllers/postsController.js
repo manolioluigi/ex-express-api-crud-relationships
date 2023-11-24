@@ -7,7 +7,8 @@ const slugify = require('slugify');
 // crea un nuovo post
 async function createPost(req, res) {
     try {
-        const { title, image, content, published } = req.body;
+
+        const { title, image, content, published, categoryId, tagId } = req.body;
         const slug = await generateUniqueSlug(title);
 
         const newPost = await prisma.post.create({
@@ -17,6 +18,8 @@ async function createPost(req, res) {
                 image,
                 content,
                 published,
+                categoryId,
+                tagId
             },
         });
 
@@ -73,7 +76,7 @@ async function updatePost(req, res) {
             },
             data: {
                 title,
-                slug: await generateUniqueSlug(title, slug),
+                slug: await generateUniqueSlug(title),
                 image,
                 content,
                 published,
@@ -116,16 +119,13 @@ async function deletePost(req, res) {
 }
 
 // crea slug unici
-async function generateUniqueSlug(title, existingSlug = null) {
+async function generateUniqueSlug(title) {
     const trimmedTitle = title.trim();
     const newSlug = slugify(trimmedTitle, { lower: true });
 
     const existingPostWithSlug = await prisma.post.findFirst({
         where: {
             slug: newSlug,
-            NOT: {
-                slug: existingSlug,
-            },
         },
     });
 
